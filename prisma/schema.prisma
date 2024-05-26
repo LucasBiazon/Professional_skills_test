@@ -17,8 +17,8 @@ model User {
   id         String   @id @default(uuid())
   name       String
   email      String   @unique
-  senha      String
-  role       String
+  password   String
+  role       String   @default("user")
   bio        String
   avartarUrl String
   creatAt    DateTime @default(now())

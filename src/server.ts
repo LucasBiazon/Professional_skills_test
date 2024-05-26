@@ -1,6 +1,9 @@
 import fastify from 'fastify';
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUI from "@fastify/swagger-ui";
+import { createUser } from './http/routes/create-user';
+import fastifyCookie from '@fastify/cookie';
+import { loginUser } from './http/routes/login-user';
 
 const app = fastify({
   logger: true
@@ -22,9 +25,22 @@ app.register(fastifySwaggerUI, {
   routePrefix: '/documentation'
 });
 
+app.register(import('@fastify/jwt'), {
+  secret: 'professionalSkillsTestSecret'
+})
+
+
+app.register(fastifyCookie, {
+  secret: 'professionalSkillsTestSecret',
+  hook: 'onRequest'
+})
+
 app.get('/hello', async () => {
   return {hello: "world"}
-})
+});
+
+app.register(createUser);
+app.register(loginUser);
 
 const start = async () => {
   try {
@@ -33,9 +49,9 @@ const start = async () => {
     })
     console.log("Server started!")
   } catch (err) {
-    app.log.error(err)
-    process.exit(1)
+    app.log.error(err);
+    process.exit(1);
   }
 }
 
-start()
+start();
