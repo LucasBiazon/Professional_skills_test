@@ -1,0 +1,33 @@
+{
+  "name": "professional_skills_test",
+  "version": "1.0.0",
+  "description": "The idea is to provide a platform where users can assess their skills in various areas (such as programming, design, marketing, etc.) through specific tests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch ./src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasBiazon/Professional_skills_test.git"
+  },
+  "author": "Lucas Biazon Palma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasBiazon/Professional_skills_test/issues"
+  },
+  "homepage": "https://github.com/LucasBiazon/Professional_skills_test#readme",
+  "dependencies": {
+    "@fastify/jwt": "^8.0.1",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^3.0.0",
+    "fastify": "^4.27.0",
+    "prisma": "^5.14.0",
+    "tsx": "^4.11.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5"
+  }
+}
