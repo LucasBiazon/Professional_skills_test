@@ -3,7 +3,7 @@ import z from "zod";
 import { prisma } from "../../lib/prisma";
 
 export async function createUser(app: FastifyInstance){
-  app.post('/user/register', async (request, reply) => {
+  app.post('/singUp', async (request, reply) => {
     try{
       const createUserBody = z.object({
         name: z.string().min(1),

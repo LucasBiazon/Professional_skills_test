@@ -29,17 +29,17 @@ model SkillTest {
   id          String     @id @default(uuid())
   title       String
   description String
-  question    Question[]
+  questions   Question[]
 }
 
 model Question {
   id               String             @id @default(uuid())
   title            String
   description      String
-  CorrectResponse  String
+  correctResponse  String
   testId           SkillTest          @relation(fields: [skillTestId], references: [id])
   skillTestId      String
-  QuestionOption   QuestionOption[]
+  questionOptions  QuestionOption[]
   QuestionResponse QuestionResponse[]
 }
 

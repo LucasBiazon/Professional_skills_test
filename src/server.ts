@@ -4,8 +4,9 @@ import fastifySwaggerUI from "@fastify/swagger-ui";
 import { createUser } from './http/routes/create-user';
 import fastifyCookie from '@fastify/cookie';
 import { loginUser } from './http/routes/login-user';
+import { createSkillTest } from './http/routes/create-skillTest';
 
-const app = fastify({
+export const app = fastify({
   logger: true
 });
 
@@ -41,6 +42,7 @@ app.get('/hello', async () => {
 
 app.register(createUser);
 app.register(loginUser);
+app.register(createSkillTest)
 
 const start = async () => {
   try {
