@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import z from "zod";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
 
 export async function createUser(app: FastifyInstance){
   app.post('/singUp', async (request, reply) => {

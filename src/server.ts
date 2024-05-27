@@ -1,10 +1,11 @@
 import fastify from 'fastify';
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUI from "@fastify/swagger-ui";
-import { createUser } from './http/routes/create-user';
+import { createUser } from './http/routes/user/create-user';
 import fastifyCookie from '@fastify/cookie';
 import { loginUser } from './http/routes/login-user';
-import { createSkillTest } from './http/routes/create-skillTest';
+import { createSkillTest } from './http/routes/skillTest/create-skillTest';
+import { getUser } from './http/routes/user/get-user';
 
 export const app = fastify({
   logger: true
@@ -43,6 +44,7 @@ app.get('/hello', async () => {
 app.register(createUser);
 app.register(loginUser);
 app.register(createSkillTest)
+app.register(getUser)
 
 const start = async () => {
   try {

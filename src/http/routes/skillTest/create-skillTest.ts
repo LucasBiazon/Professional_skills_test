@@ -1,13 +1,13 @@
 import { FastifyInstance } from "fastify";
-import { authenticate } from "../../utils/tokenAuthVerification";
+import { authenticate } from "../../../utils/tokenAuthVerification";
 import { z } from "zod";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
 
 export async function createSkillTest(app: FastifyInstance) {
   app.post('/skillTest', async (request, reply) => {
     const decodedToken = await authenticate(app, request, reply);
     if (!decodedToken) {
-      return reply.status(401).send('Unauthorized').redirect("/login");
+      return reply.status(401).send('Unauthorized')
     }
 
     const createSkillTestBody = z.object({
