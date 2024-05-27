@@ -8,11 +8,11 @@ export async function getUser(app: FastifyInstance){
    try{
     const decodedToken = await authenticate(app, request, reply);
     if (!decodedToken) {
-      return reply.status(401).send('Unauthorized')
+      return reply.status(401).send('Unauthorized');
     }
 
-      const requestId = (Object.entries(decodedToken)[0])
-      const userId = requestId[1]
+      const requestId = (Object.entries(decodedToken)[0]);
+      const userId = requestId[1];
 
       
       const user = await prisma.user.findUnique({
@@ -27,13 +27,13 @@ export async function getUser(app: FastifyInstance){
             creatAt: true,
             updateAt: true
           } 
-      })
+      });
       
       if(!user){
         return reply.status(404).send({message: "User not found"});
       }
 
-      reply.status(200).send({user: user})
+      reply.status(200).send({user: user});
       
    }catch(err){}
   })

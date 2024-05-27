@@ -31,5 +31,5 @@ export async function loginUser(app: FastifyInstance){
       maxAge: 60 * 60 * 24 * 7,
       signed: true
     }).status(200).send({ message: 'Login successful', token });
-  })
+  });
 }

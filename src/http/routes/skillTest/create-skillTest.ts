@@ -7,7 +7,7 @@ export async function createSkillTest(app: FastifyInstance) {
   app.post('/skillTest', async (request, reply) => {
     const decodedToken = await authenticate(app, request, reply);
     if (!decodedToken) {
-      return reply.status(401).send('Unauthorized')
+      return reply.status(401).send('Unauthorized');
     }
 
     const createSkillTestBody = z.object({

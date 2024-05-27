@@ -6,6 +6,7 @@ import fastifyCookie from '@fastify/cookie';
 import { loginUser } from './http/routes/login-user';
 import { createSkillTest } from './http/routes/skillTest/create-skillTest';
 import { getUser } from './http/routes/user/get-user';
+import { updateUser } from './http/routes/user/update-user';
 
 export const app = fastify({
   logger: true
@@ -43,8 +44,9 @@ app.get('/hello', async () => {
 
 app.register(createUser);
 app.register(loginUser);
-app.register(createSkillTest)
-app.register(getUser)
+app.register(createSkillTest);
+app.register(getUser);
+app.register(updateUser);
 
 const start = async () => {
   try {
