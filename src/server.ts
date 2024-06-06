@@ -10,6 +10,7 @@ import { updateUser } from './http/routes/user/update-user';
 import { getManySkillTest } from './http/routes/skillTest/get-many-skillTests';
 import { responseSkillTest } from './http/routes/skillTest/response-skillTest';
 import { getSkillTest } from './http/routes/skillTest/get-skillTest';
+import { getUserResponses } from './http/routes/user/get-user-response';
 
 export const app = fastify({
   logger: true
@@ -49,6 +50,8 @@ app.register(createUser);
 app.register(loginUser);
 app.register(getUser);
 app.register(updateUser);
+app.register(getUserResponses)
+
 app.register(createSkillTest);
 app.register(getManySkillTest);
 app.register(getSkillTest);
