@@ -11,6 +11,10 @@ import { getManySkillTest } from './http/routes/skillTest/get-many-skillTests';
 import { responseSkillTest } from './http/routes/skillTest/response-skillTest';
 import { getSkillTest } from './http/routes/skillTest/get-skillTest';
 import { getUserResponses } from './http/routes/user/get-user-response';
+import { getAdminUsers } from './http/routes/admin/get-many-user';
+import { promote } from './http/routes/admin/promote';
+import { deleteUser } from './http/routes/admin/delete-user';
+import { deleteSkillTest } from './http/routes/admin/deleteSkillTest';
 
 export const app = fastify({
   logger: true
@@ -56,6 +60,12 @@ app.register(createSkillTest);
 app.register(getManySkillTest);
 app.register(getSkillTest);
 app.register(responseSkillTest);
+
+
+app.register(getAdminUsers);
+app.register(promote);
+app.register(deleteUser);
+app.register(deleteSkillTest);
 
 const start = async () => {
   try {
