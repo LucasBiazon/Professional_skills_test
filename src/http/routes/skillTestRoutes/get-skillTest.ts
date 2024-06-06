@@ -29,9 +29,12 @@ export async function getSkillTest(app: FastifyInstance) {
       });
 
       return reply.status(200).send({
+        message:"Success",
         skillTest
       })
 
-    }catch(err){}
-  })
+    }catch(err){
+      return reply.status(500).send(err);
+    }
+  });
 }

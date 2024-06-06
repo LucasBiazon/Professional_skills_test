@@ -8,13 +8,14 @@ export async function authenticateAdmin(app: FastifyInstance, request: FastifyRe
       return reply.status(401).send('Unauthorized');
     }
     
-      const requestRole = (Object.entries(decodedToken)[1]);
-      const admin = requestRole[1];
+    const requestRole = (Object.entries(decodedToken)[1]);
+    const admin = requestRole[1];
 
-      if(admin != "admin"){
-        return reply.status(401).send('Unauthorized');
-      }
-} catch (err) {
-  reply.code(401).send({ error: 'Unauthorized' });
-}
+    if(admin != "admin"){
+        return reply.status(403).send('Unauthorized');
+    }
+      
+  } catch (err) {
+    reply.code(500).send({ error: err });
+  }
 }

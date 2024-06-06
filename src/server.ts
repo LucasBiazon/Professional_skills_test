@@ -1,20 +1,20 @@
 import fastify from 'fastify';
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUI from "@fastify/swagger-ui";
-import { createUser } from './http/routes/user/create-user';
 import fastifyCookie from '@fastify/cookie';
+import { createUser } from './http/routes/userRoutes/create-user';
 import { loginUser } from './http/routes/login-user';
-import { createSkillTest } from './http/routes/skillTest/create-skillTest';
-import { getUser } from './http/routes/user/get-user';
-import { updateUser } from './http/routes/user/update-user';
-import { getManySkillTest } from './http/routes/skillTest/get-many-skillTests';
-import { responseSkillTest } from './http/routes/skillTest/response-skillTest';
-import { getSkillTest } from './http/routes/skillTest/get-skillTest';
-import { getUserResponses } from './http/routes/user/get-user-response';
-import { getAdminUsers } from './http/routes/admin/get-many-user';
+import { getUser } from './http/routes/userRoutes/get-user';
+import { updateUser } from './http/routes/userRoutes/update-user';
+import { getUserResponses } from './http/routes/userRoutes/get-user-response';
+import { createSkillTest } from './http/routes/skillTestRoutes/create-skillTest';
+import { getManySkillTest } from './http/routes/skillTestRoutes/get-many-skillTests';
+import { responseSkillTest } from './http/routes/userRoutes/response-skillTest';
+import { getSkillTest } from './http/routes/skillTestRoutes/get-skillTest';
+import { getAdminUsers } from './http/routes/admin/get-many-users';
 import { promote } from './http/routes/admin/promote';
 import { deleteUser } from './http/routes/admin/delete-user';
-import { deleteSkillTest } from './http/routes/admin/deleteSkillTest';
+import { deleteSkillTest } from './http/routes/admin/delete-skillTest';
 
 export const app = fastify({
   logger: true

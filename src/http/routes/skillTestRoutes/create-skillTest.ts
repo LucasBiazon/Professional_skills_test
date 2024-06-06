@@ -5,26 +5,27 @@ import { prisma } from "../../../lib/prisma";
 
 export async function createSkillTest(app: FastifyInstance) {
   app.post('/skillTest', async (request, reply) => {
-    const decodedToken = await authenticate(app, request, reply);
-    if (!decodedToken) {
-      return reply.status(401).send('Unauthorized');
-    }
+    try{
+      const decodedToken = await authenticate(app, request, reply);
+      if (!decodedToken) {
+        return reply.status(401).send('Unauthorized');
+      }
 
-    const createSkillTestBody = z.object({
-      title: z.string(),
-      description: z.string(),
-      questions: z.array(z.object({
+      const createSkillTestBody = z.object({
         title: z.string(),
         description: z.string(),
-        correctResponse: z.string(),
-        questionOptions: z.array(z.object({
+        questions: z.array(z.object({
           title: z.string(),
           description: z.string(),
+          correctResponse: z.string(),
+          questionOptions: z.array(z.object({
+            title: z.string(),
+            description: z.string(),
+          })),
         })),
-      })),
-    });
+      });
 
-    const { title, description, questions } = createSkillTestBody.parse(request.body);
+      const { title, description, questions } = createSkillTestBody.parse(request.body);
 
    
       const skillTest = await prisma.skillTest.create({
@@ -47,6 +48,9 @@ export async function createSkillTest(app: FastifyInstance) {
         },
       });
 
-      reply.code(201).send({skillTest, questions});
+      reply.code(201).send({message:"Success", skillTest, questions});
+    }catch(err){
+      return reply.status(500).send(err);
+    }
   });
 }

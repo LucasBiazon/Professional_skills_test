@@ -19,11 +19,14 @@ export async function deleteUser(app: FastifyInstance){
         return reply.status(400).send({ error: 'Invalid request body'});
       }
 
-      const deleteUser = await prisma.user.delete({
+      await prisma.user.delete({
         where: {id: userId},
       });
 
       reply.status(200).send({message: 'Sucess'});
-      }catch(err){}
+      
+    }catch(err){
+      reply.code(500).send({ error: err });
+    }
   })
 }

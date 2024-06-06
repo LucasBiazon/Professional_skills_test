@@ -34,7 +34,7 @@ export async function createUser(app: FastifyInstance){
       return reply.status(201).send({message: "User created!", user: user});
       
     }catch(err){
-      
+      reply.code(500).send({ error: err });
     }
   });
 }

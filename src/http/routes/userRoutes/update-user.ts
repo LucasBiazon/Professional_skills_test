@@ -1,4 +1,4 @@
-import fastify, { FastifyInstance } from "fastify";
+import { FastifyInstance } from "fastify";
 import { authenticate } from "../../../utils/tokenAuthVerification";
 import z from "zod";
 import { prisma } from "../../../lib/prisma";
@@ -6,14 +6,13 @@ import { prisma } from "../../../lib/prisma";
 export async function updateUser(app: FastifyInstance){
   app.put('/user/update', async (request, reply) => {
     try{
-
       const decodedToken = await authenticate(app, request, reply);
       if (!decodedToken) {
         return reply.status(401).send('Unauthorized');
       }
 
-      const requestId = Object.entries(decodedToken)[0]
-      const userId = requestId[1]
+      const requestId = Object.entries(decodedToken)[0];
+      const userId = requestId[1];
 
       const requestUpdateUserBody = z.object({
         name: z.string().min(1).optional(),
@@ -29,16 +28,16 @@ export async function updateUser(app: FastifyInstance){
         return reply.status(400).send({ error: 'Invalid request body', details: requestUpdateUser.error.errors });
       }
 
-      
-
-      const updateUser = await prisma.user.update({
+      await prisma.user.update({
         where: {id: userId},
         data: {
           ...requestUpdateUser.data
         }
       });
 
-      reply.status(200).send({message: 'Sucess'});
-      }catch(err){}
-  })
+      reply.status(200).send({message: 'Success'});
+    }catch(err){
+      reply.code(500).send({ error: err });
+    }
+  });
 }

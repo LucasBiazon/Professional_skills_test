@@ -10,7 +10,8 @@ export async function getAdminUsers(app: FastifyInstance){
       authenticateAdmin(app, request, reply);
       const users = await prisma.user.findMany();
       reply.status(200).send({users: users});
-      
-   }catch(err){}
+   }catch(err){
+    reply.code(500).send({ error: err });
+   }
   })
 }

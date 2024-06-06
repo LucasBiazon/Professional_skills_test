@@ -1,6 +1,5 @@
 import { FastifyInstance } from "fastify";
 import { authenticate } from "../../../utils/tokenAuthVerification";
-import z from "zod";
 import { prisma } from "../../../lib/prisma";
 
 
@@ -12,12 +11,15 @@ export async function getManySkillTest(app: FastifyInstance) {
         return reply.status(401).send('Unauthorized');
       }
 
-      const  skillTests = await prisma.skillTest.findMany()
+      const  skillTests = await prisma.skillTest.findMany();
 
       return reply.status(200).send({
+        message:"Success",
         skillTests
-      })
+      });
 
-    }catch(err){}
-  })
+    }catch(err){
+      return reply.status(500).send(err);
+    }
+  });
 }

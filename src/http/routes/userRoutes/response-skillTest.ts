@@ -7,11 +7,12 @@ import z from "zod";
 export async function responseSkillTest(app: FastifyInstance){
   app.post('/skillTest/:skillTestId/response', async (request, reply) => {
       try {
-
         const decodedToken = await authenticate(app, request, reply);
+
         if(!decodedToken){
           return reply.status(401).send('Unauthorized');
         }
+
         const requestId = (Object.entries(decodedToken)[0]);
         const userId = requestId[1];
 
@@ -23,16 +24,10 @@ export async function responseSkillTest(app: FastifyInstance){
 
         const skillTest = await prisma.skillTest.findUnique({
           where: {id: skillTestId },
-          include: { 
-            questions: {
-              include: {
-                questionOptions: true,
-              },
-            }}
         });
 
         if (!skillTest) {
-          return reply.status(404).send({ error: 'Teste de habilidades não encontrado.' });
+          return reply.status(404).send({ error: 'Skill test not found' });
         }
 
         const requestBody = z.object({
@@ -42,10 +37,10 @@ export async function responseSkillTest(app: FastifyInstance){
 
         const {questionId, questionOptionId} = requestBody.parse(request.body);
         if(!questionId){
-          return reply.status(404).send({ error: 'Question não encontrado.' });
+          return reply.status(404).send({ error: 'Question not found' });
         }
         if(!questionOptionId){
-          return reply.status(404).send({ error: 'QuestionOption não encontrado.' });
+          return reply.status(404).send({ error: 'Question option not found' });
         }
 
         const existingResponse = await prisma.questionResponse.findFirst({
@@ -56,7 +51,7 @@ export async function responseSkillTest(app: FastifyInstance){
         });
   
         if (existingResponse) {
-          return reply.status(400).send({ error: 'Você já respondeu a esta pergunta.' });
+          return reply.status(403).send({ error: 'You have already answered this question.' });
         }
 
         const responseSkillTest = await prisma.questionResponse.create({
@@ -65,7 +60,7 @@ export async function responseSkillTest(app: FastifyInstance){
             questionOptionId: questionOptionId,
             userId: userId
           }
-        })
+        });
 
         await prisma.questionOption.update({
           where: { id: questionOptionId },
@@ -78,11 +73,12 @@ export async function responseSkillTest(app: FastifyInstance){
 
 
         return reply.status(201).send({
-          message: "Responsed",
+          message: "Success",
           responseSkillTest: responseSkillTest
-        })
+        });
+
       }catch(err){
-        return reply.status(400).send(err)
+        return reply.status(500).send(err);
       }
-  })
+  });
 }

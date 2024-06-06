@@ -35,8 +35,9 @@ export async function deleteSkillTest(app: FastifyInstance){
       });
 
       reply.status(200).send({message: 'Sucess'});
-      }catch(err){
-        reply.status(400).send({message: err});
-      }
-  })
+      
+    }catch(err){
+      reply.status(400).send({message: err});
+    }
+  });
 }

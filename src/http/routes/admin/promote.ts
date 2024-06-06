@@ -19,7 +19,7 @@ export async function promote(app: FastifyInstance){
         return reply.status(400).send({ error: 'Invalid request body'});
       }
 
-      const promote = await prisma.user.update({
+      await prisma.user.update({
         where: {id: userId},
         data: {
           role: "admin"
@@ -27,6 +27,8 @@ export async function promote(app: FastifyInstance){
       });
 
       reply.status(200).send({message: 'Sucess'});
-      }catch(err){}
-  })
+    }catch(err){
+        reply.code(500).send({ error: err });
+    }
+  });
 }
