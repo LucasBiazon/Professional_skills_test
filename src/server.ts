@@ -7,6 +7,9 @@ import { loginUser } from './http/routes/login-user';
 import { createSkillTest } from './http/routes/skillTest/create-skillTest';
 import { getUser } from './http/routes/user/get-user';
 import { updateUser } from './http/routes/user/update-user';
+import { getManySkillTest } from './http/routes/skillTest/get-many-skillTests';
+import { responseSkillTest } from './http/routes/skillTest/response-skillTest';
+import { getSkillTest } from './http/routes/skillTest/get-skillTest';
 
 export const app = fastify({
   logger: true
@@ -22,7 +25,7 @@ app.register(fastifySwagger, {
       version: '1.0.0'
     },
   },
-})
+});
 
 app.register(fastifySwaggerUI, {
   routePrefix: '/documentation'
@@ -30,13 +33,13 @@ app.register(fastifySwaggerUI, {
 
 app.register(import('@fastify/jwt'), {
   secret: 'professionalSkillsTestSecret'
-})
+});
 
 
 app.register(fastifyCookie, {
   secret: 'professionalSkillsTestSecret',
   hook: 'onRequest'
-})
+});
 
 app.get('/hello', async () => {
   return {hello: "world"}
@@ -44,9 +47,12 @@ app.get('/hello', async () => {
 
 app.register(createUser);
 app.register(loginUser);
-app.register(createSkillTest);
 app.register(getUser);
 app.register(updateUser);
+app.register(createSkillTest);
+app.register(getManySkillTest);
+app.register(getSkillTest);
+app.register(responseSkillTest);
 
 const start = async () => {
   try {

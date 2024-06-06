@@ -14,15 +14,16 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  name       String
-  email      String   @unique
-  password   String
-  role       String   @default("user")
-  bio        String
-  avartarUrl String
-  creatAt    DateTime @default(now())
-  updateAt   DateTime @default(now())
+  id               String             @id @default(uuid())
+  name             String
+  email            String             @unique
+  password         String
+  role             String             @default("user")
+  bio              String
+  avartarUrl       String
+  creatAt          DateTime           @default(now())
+  updateAt         DateTime           @default(now())
+  QuestionResponse QuestionResponse[]
 }
 
 model SkillTest {
@@ -47,6 +48,7 @@ model QuestionOption {
   id               String             @id @default(uuid())
   title            String
   description      String
+  count            Int                @default(0)
   question         Question           @relation(fields: [questionId], references: [id])
   questionId       String
   QuestionResponse QuestionResponse[]
@@ -56,6 +58,8 @@ model QuestionResponse {
   id               String         @id @default(uuid())
   question         Question       @relation(fields: [questionId], references: [id])
   questionOption   QuestionOption @relation(fields: [questionOptionId], references: [id])
+  user             User           @relation(fields: [userId], references: [id])
   questionId       String
   questionOptionId String
+  userId           String
 }

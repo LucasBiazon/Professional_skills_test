@@ -10,7 +10,7 @@ export async function getUser(app: FastifyInstance){
     if (!decodedToken) {
       return reply.status(401).send('Unauthorized');
     }
-
+    
       const requestId = (Object.entries(decodedToken)[0]);
       const userId = requestId[1];
 
